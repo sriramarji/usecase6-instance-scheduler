@@ -64,5 +64,5 @@ module "iam" {
   source         = "./modules/iam"
   tags           = var.tags
   function_name  = "${var.project_name}-lambda-role"
-  policy_actions = ["ec2:DescribeInstances", "ec2:StartInstances"]
+  policy_actions = ["ec2:DescribeInstances", "ec2:StartInstances","ec2:StopInstances"]
 }
