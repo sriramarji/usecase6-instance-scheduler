@@ -1,3 +1,23 @@
+# Lambda Module for EC2 Instance stop 
+
+module "lambda_stop_ec2" {
+  source        = "./modules/lambda"
+  function_name = "${var.project_name}-stop_ec2instances"
+  handler       = "stop_instances.lambda_handler"
+  runtime       = "python3.9"
+  timeout       = 60
+  role          = module.iam.lambda_role_arn
+
+  environment_variables = {
+    TAG_KEY   = var.tag_key
+    TAG_VALUE = var.tag_value
+    #REGION             = var.aws_region
+  }
+  lambda_code_path = "${path.module}/source/stop_ec2instances.py"
+  policy_actions   = ["ec2:DescribeInstances", "ec2:StartInstances","ec2:StopInstances"]
+  tags             = var.tags
+}
+
 # Lambda Module for EC2 Instance Start 
 
 module "lambda_start_ec2" {
@@ -19,26 +39,12 @@ module "lambda_start_ec2" {
   tags             = var.tags
 }
 
-# Lambda Module for EC2 Instance stop 
-
-module "lambda_stop_ec2" {
-  source        = "./modules/lambda"
-  function_name = "${var.project_name}-stop_ec2instances"
-  handler       = "stop_instances.lambda_handler"
-  runtime       = "python3.9"
-  timeout       = 60
-  role          = module.iam.lambda_role_arn
-
-  environment_variables = {
-    TAG_KEY   = var.tag_key
-    TAG_VALUE = var.tag_value
-    #REGION             = var.aws_region
-  }
-  lambda_code_path = "${path.module}/source/stop_ec2instances.py"
-  policy_actions   = ["ec2:DescribeInstances", "ec2:StartInstances","ec2:StopInstances"]
-  tags             = var.tags
+module "iam" {
+  source         = "./modules/iam"
+  tags           = var.tags
+  function_name  = "${var.project_name}-lambda-role"
+  policy_actions = ["ec2:DescribeInstances", "ec2:StartInstances","ec2:StopInstances"]
 }
-
 
 module "cloudwatch_start_schedule" {
   source               = "./modules/cloudwatch"
@@ -58,11 +64,4 @@ module "cloudwatch_stop_schedule" {
   lambda_function_name = module.lambda_stop_ec2.lambda_function_name
   lambda_function_arn  = module.lambda_stop_ec2.lambda_function_arn
   tags                 = var.tags
-}
-
-module "iam" {
-  source         = "./modules/iam"
-  tags           = var.tags
-  function_name  = "${var.project_name}-lambda-role"
-  policy_actions = ["ec2:DescribeInstances", "ec2:StartInstances","ec2:StopInstances"]
 }
