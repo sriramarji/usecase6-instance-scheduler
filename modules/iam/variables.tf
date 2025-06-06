@@ -3,11 +3,10 @@ variable "function_name" {
 }
 
 
-variable "policy_actions" {
+/*variable "policy_actions" {
   description = "List of IAM policy actions for the Lambda function"
   type        = list(string)
-
-}
+}*/
 
 variable "tags" {
   type = map(string)
