@@ -7,8 +7,8 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 # Get environment variables
-TAG_KEY = os.environ.get('TAG_KEY', 'Key name')
-TAG_VALUE = os.environ.get('TAG_VALUE', 'Hcl-prac-training')
+TAG_KEY = os.environ.get('TAG_KEY', 'Hcl-prac-training')
+TAG_VALUE = os.environ.get('TAG_VALUE', 'true')
 #KEY_NAME = os.environ.get('KEY_NAME', 'Hcl-prac-training')
 REGION = os.environ.get('REGION', 'us-east-1')
 
