@@ -4,7 +4,7 @@ module "lambda_stop_ec2" {
   source        = "./modules/lambda"
   function_name = "${var.project_name}-stop_ec2instances"
   handler       = "stop_instances.lambda_handler"
-  runtime       = "python3.9"
+  runtime       = "python3.11"
   timeout       = 60
   role          = module.iam.lambda_role_arn
 
