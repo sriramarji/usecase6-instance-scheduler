@@ -11,7 +11,10 @@ on:
         options:
           - apply
           - terminate
-
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   terraform:
     name: Terraform ${{ github.event.inputs.action }}
