@@ -50,7 +50,7 @@ module "cloudwatch_start_schedule" {
   source               = "./modules/cloudwatch"
   name                 = "${var.project_name}-start-instances-schedule"
   description          = "Triggers Lambda function to start EC2 instances at 8:00 AM on weekdays"
-  schedule_expression  = "cron(30 11 ? * MON-FRI *)"
+  schedule_expression  = "cron(55 11 ? * MON-FRI *)"
   lambda_function_name = module.lambda_start_ec2.lambda_function_name
   lambda_function_arn  = module.lambda_start_ec2.lambda_function_arn
   tags                 = var.tags
@@ -60,7 +60,7 @@ module "cloudwatch_stop_schedule" {
   source               = "./modules/cloudwatch"
   name                 = "${var.project_name}-stop-instances-schedule"
   description          = "Triggers Lambda function to stop EC2 instances at 5:00 PM on weekdays"
-  schedule_expression  = "cron(40 11 ? * MON-FRI *)"
+  schedule_expression  = "cron(00 12 ? * MON-FRI *)"
   lambda_function_name = module.lambda_stop_ec2.lambda_function_name
   lambda_function_arn  = module.lambda_stop_ec2.lambda_function_arn
   tags                 = var.tags
