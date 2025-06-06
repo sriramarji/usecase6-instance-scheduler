@@ -8,14 +8,14 @@ variable "tag_key" {
 
   description = "Tag key to identify EC2 instances that should be managed by the scheduler"
   type        = string
-  default     = "Key name"
+  default     = "Hcl-prac-training"
 }
 
 variable "tag_value" {
 
   description = "Tag value to identify EC2 instances that should be managed by the scheduler"
   type        = string
-  default     = "Hcl-prac-training"
+  default     = "true"
 }
 
 variable "tags" {
