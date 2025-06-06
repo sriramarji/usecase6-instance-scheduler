@@ -14,7 +14,7 @@ module "lambda_stop_ec2" {
     #REGION             = var.aws_region
   }
   lambda_code_path = "${path.module}/source/stop_ec2instances.py"
-  policy_actions   = ["ec2:DescribeInstances", "ec2:StartInstances","ec2:StopInstances"]
+  policy_actions   = ["ec2:DescribeInstances", "ec2:StopInstances"]
   tags             = var.tags
 }
 
@@ -35,7 +35,7 @@ module "lambda_start_ec2" {
     #REGION             = var.aws_region
   }
   lambda_code_path = "${path.module}/source/start_ec2instances.py"
-  policy_actions   = ["ec2:DescribeInstances", "ec2:StartInstances","ec2:StopInstances"]
+  policy_actions   = ["ec2:DescribeInstances", "ec2:StartInstances"]
   tags             = var.tags
 }
 
@@ -43,7 +43,7 @@ module "iam" {
   source         = "./modules/iam"
   tags           = var.tags
   function_name  = "${var.project_name}-lambda-role"
-  policy_actions = ["ec2:DescribeInstances", "ec2:StartInstances","ec2:StopInstances"]
+  policy_actions = ["ec2:DescribeInstances", "ec2:StartInstances"]
 }
 
 module "cloudwatch_start_schedule" {
